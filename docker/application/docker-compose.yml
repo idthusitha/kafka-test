@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  kafka-test:
+    image: test/kafka-test
+    ports:
+      - "8080:8080"
+    network_mode: host

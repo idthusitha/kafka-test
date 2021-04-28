@@ -2,11 +2,12 @@ plugins {
 	id 'org.springframework.boot' version '2.4.5'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'com.bmuschko.docker-remote-api' version '6.6.1'
 }
 
 group = 'com.kafkatest'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+version = 'latest'
+sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
@@ -21,4 +22,17 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+
+import com.bmuschko.gradle.docker.tasks.image.*
+task buildDocker(type: DockerBuildImage, dependsOn: build) {
+	inputDir = file('docker')
+	images.add('test/kafka-test')
+	doFirst {
+		copy {
+			from 'build/libs'
+			into 'docker'
+		}
+	}
 }
