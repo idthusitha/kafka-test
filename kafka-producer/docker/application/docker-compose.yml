@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  kafka-producer:
+    image: test/kafka-producer
+    ports:
+      - "8080:8080"
+    network_mode: host
